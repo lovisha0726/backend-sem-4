@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            background-color: #6a7a9b;
+            font-family: Verdana;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .wrapper.six {
+            background-color: #ffffff;
+        }
+
+        .flicker {
+            font-size: 6rem;
+            font-family: 'Merienda', sans-serif;
+            margin: 1rem auto;
+            color: #00000061;
+            background: -webkit-gradient(linear, left top, right top, from(#000000), to(#080707), color-stop(0.8, #000000)) no-repeat;
+            background-size: 110px 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: flick 1.5s infinite;
+        }
+
+        @keyframes flick {
+            0% {
+                background-position: top left;
+            }
+
+            100% {
+                background-position: top right;
+            }
+        }
+
+        .form-control {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .form-control label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .form-control input,
+        .form-control select,
+        .form-control textarea {
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+            width: 95%;
+        }
+
+        .form-control input[type="radio"],
+        .form-control input[type="checkbox"] {
+            display: inline-block;
+            width: auto;
+        }
+
+        button {
+            background-color:#6a7a9b ;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 21px;
+            display: block;
+            width: 100%;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5a4dcf;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper six">
+        <div>
+            <h3 class="flicker">REGISTRATION FORM</h3>
+        </div>
+    </div>
+
+    <form id="registration-form" action="http://localhost:3000/register" method="POST">
+
+    <div class="form-control">
+        <label for="full-name" id="label-full-name">Full Name</label>
+        <input type="text" id="full-name" name="name" placeholder="Enter your full name" required />
+    </div>
+
+    <div class="form-control">
+        <label for="username" id="label-username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required />
+    </div>
+
+    <div class="form-control">
+        <label for="email" id="label-email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+    </div>
+
+    <div class="form-control">
+        <label for="phone" id="label-phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+    </div>
+
+    <div class="form-control">
+        <label for="password" id="label-password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+    </div>
+
+    <div class="form-control">
+        <label for="confirm-password" id="label-confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required />
+    </div>
+
+    <div class="form-control">
+        <label for="gender" id="label-gender">Gender</label>
+        <select name="gender" id="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+
+    <div class="form-control">
+        <label for="address" id="label-address">Address</label>
+        <textarea name="address" id="address" placeholder="Enter your address" required></textarea>
+    </div>
+
+    <button type="submit">REGISTER</button>
+</form>
+
+
+    <script>
+    
+        document.getElementById('registration-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('full-name').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                password: document.getElementById('password').value,
+                confirmPassword: document.getElementById('confirm-password').value,
+                gender: document.getElementById('gender').value,
+                address: document.getElementById('address').value,
+            };
+
+         
+            fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Registration Successful!');
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error with registration!');
+                });
+        });
+    </script>
+
+</body>
