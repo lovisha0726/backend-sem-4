@@ -1,31 +1,39 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const http = require('http');//import builtin http module
+const fs = require('fs');//import built in file system module
+const path = require('path');//manipulating file and directory paths(jese isme hamne p1.html import ki)
 
-const port = 3000;
+const port = 3000;//(server running on port 3000)
 
+//create server and req and res handles the incomming request and send respone
 const server = http.createServer((req, res) => {
+    //if we are using GET(for getting data from server) && requested url is root or home page /
     if (req.method === 'GET' && req.url === '/') {
-        fs.readFile(path.join(__dirname, 'p1.html'), (err, data) => {
+        //reads the data of file p1.html that contain data of home page
+        fs.readFile(path.join(__dirname, 'p1.html'), //checks if there is error 
+        (err, data) => {
             if (err) {
                 res.statusCode = 500;
-                res.end('Error loading the HTML file');
+                res.end('Error loading the HTML file');//error dikhayega 
                 return;
             }
             res.statusCode = 200;
-            res.setHeader('Content-Type', 'text/html');
+            res.setHeader('Content-Type', 'text/html');//opens p1.html
             res.end(data);
         });
-    } else if (req.method === 'GET' && req.url === '/register') {
-        
-        fs.readFile('data.json', 'utf8', (err, data) => {
+
+    } 
+    //if root is /register 
+    else if (req.method === 'GET' && req.url === '/register') {
+        //read data.json and The second argument specifies the encoding used to interpret the contents of the file. 'utf8' ensures the file is read as a string rather than raw binary data.
+        fs.readFile('data.json', 'utf8', (err, data) =>
+             {
             if (err) {
                 res.statusCode = 500;
-                res.end('Error loading data from data.json');
+                res.end('Error loading data from data.json');//error -agr nhi h data file
                 return;
             }
-
-            const existingData = data ? JSON.parse(data) : [];
+ 
+            const existingData = data ? JSON.parse(data) : [];//error agr nhi to ye html code extract krega data or displau info
 
             let tableHtml = `
                 <html>
@@ -76,13 +84,13 @@ const server = http.createServer((req, res) => {
                             margin: 20px auto;
                             padding: 10px;
                             text-align: center;
-                            background-color:#463cb7;
+                            background-color:#6a7a9b;
                             color: white;
                             text-decoration: none;
                             border-radius: 5px;
                         }
                         .back-link:hover {
-                            background-color:#463cb7;
+                            background-color:#5c6a79;
                         }
                     </style>
                 </head>
@@ -115,7 +123,7 @@ const server = http.createServer((req, res) => {
             tableHtml += `
                     </tbody>
                 </table>
-                <a href="/" class="back-link">Go Back to Home</a>
+                <a href="/" class="back-link ">Go Back to Home</a>
                 </div>
             </body>
             </html>`;
@@ -125,12 +133,12 @@ const server = http.createServer((req, res) => {
             res.end(tableHtml);
         });
     } else if (req.method === 'POST' && req.url === '/register') {
-        let body = '';
+        let body = '';//data jo ayega woh ye empty string mai store hoga
 
         req.on('data', chunk => {
-            body += chunk;
+            body += chunk;//data bar bar append hora
         });
-
+        //req end hogi
         req.on('end', () => {
             try {
                 const userData = JSON.parse(body);
@@ -139,13 +147,13 @@ const server = http.createServer((req, res) => {
                 console.log('Received registration details:', userData);
 
                 let existingData = [];
-                if (fs.existsSync('data.json')) {
+                if (fs.existsSync('data.json')) {//scyn=synchronous ki pehle ek task complete hothenext
                     const data = fs.readFileSync('data.json', 'utf8');
                     existingData = data ? JSON.parse(data) : [];
-                }
+                }//JSON.parse(data) convert json string into javascript object
 
-                existingData.push({ name, email, phone, address, gender });
-
+                existingData.push({ name, email, phone, address, gender });//push data in file
+              //stringfy: js ka object ko json ke string mai krne k leye
                 fs.writeFile('data.json', JSON.stringify(existingData, null, 2), (err) => {
                     if (err) {
                         console.error('Error writing to data.json:', err);
@@ -168,7 +176,7 @@ const server = http.createServer((req, res) => {
         res.end('Not Found');
     }
 });
-
+//start erver
 server.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(Server is running on http://localhost:${port});
 });
