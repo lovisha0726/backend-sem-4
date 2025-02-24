@@ -1,4 +1,3 @@
-/* 🌟 Global Styles */
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to right, #f4f7f9, #e3e7eb);
@@ -7,7 +6,6 @@ body {
     padding: 0;
 }
 
-/* 🌟 Header */
 .header {
     background: #2980b9;
     color: white;
@@ -24,7 +22,6 @@ body {
     opacity: 0.8;
 }
 
-/* 🌟 Main Container */
 .container {
     max-width: 1000px;
     background: white;
@@ -34,8 +31,6 @@ body {
     text-align: center;
     margin: 50px auto;
 }
-
-/* 🌟 Blog Posts Grid */
 .posts-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -43,7 +38,6 @@ body {
     margin-top: 30px;
 }
 
-/* 🌟 Post Card */
 .post-card {
     background: #ffffff;
     padding: 20px;
@@ -96,8 +90,6 @@ body {
 .read-more:hover {
     text-decoration: underline;
 }
-
-/* 🌟 Add Post Button */
 .add-post-btn {
     display: inline-block;
     background: #2980b9;
@@ -115,8 +107,6 @@ body {
 .add-post-btn:hover {
     background: #1f6691;
 }
-
-/* 🌟 Form Styles */
 .post-form {
     display: flex;
     flex-direction: column;
@@ -146,8 +136,6 @@ input:focus, textarea:focus {
     background: white;
     outline: none;
 }
-
-/* 🌟 Submit & Back Buttons */
 .form-buttons {
     display: flex;
     justify-content: space-between;
@@ -183,7 +171,6 @@ input:focus, textarea:focus {
     color: #1f6691;
 }
 
-/* 🌟 Footer */
 .footer {
     text-align: center;
     padding: 20px;
@@ -193,7 +180,6 @@ input:focus, textarea:focus {
     margin-top: 40px;
 }
 
-/* 🌟 Responsive Adjustments */
 @media (max-width: 768px) {
     .container {
         width: 90%;
